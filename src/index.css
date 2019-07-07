@@ -17,6 +17,13 @@ body {
   margin: 20px;
 }
 
+button {
+  height: 60px;
+  width: 60px;
+  background: rgb(1, 88, 37);
+  outline: none;
+}
+
 ol,
 ul {
   padding-left: 30px;
