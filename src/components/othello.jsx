@@ -1,17 +1,79 @@
 import * as React from "react";
 import "../index.css";
 
-class Square extends React.Component {
-  render() {
-    return <button className="square">{this.props.value}</button>;
-  }
-}
-
 class Othello extends React.Component {
-  renderSquare(i) {
-    return <Square className={i} />;
-  }
+  a1 = "";
+  a2 = "";
+  a3 = "";
+  a4 = "";
+  a5 = "";
+  a6 = "";
+  a7 = "";
+  a8 = "";
+  b1 = "";
+  b2 = "";
+  b3 = "";
+  b4 = "";
+  b5 = "";
+  b6 = "";
+  b7 = "";
+  b8 = "";
+  c1 = "";
+  c2 = "";
+  c3 = "";
+  c4 = "";
+  c5 = "";
+  c6 = "";
+  c7 = "";
+  c8 = "";
+  d1 = "";
+  d2 = "";
+  d3 = "";
+  d4 = "stoneWhite";
+  d5 = "stoneBlack";
+  d6 = "";
+  d7 = "";
+  d8 = "";
+  e1 = "";
+  e2 = "";
+  e3 = "";
+  e4 = "stoneBlack";
+  e5 = "stoneWhite";
+  e6 = "";
+  e7 = "";
+  e8 = "";
+  f1 = "";
+  f2 = "";
+  f3 = "";
+  f4 = "";
+  f5 = "";
+  f6 = "";
+  f7 = "";
+  f8 = "";
+  g1 = "";
+  g2 = "";
+  g3 = "";
+  g4 = "";
+  g5 = "";
+  g6 = "";
+  g7 = "";
+  g8 = "";
+  h1 = "";
+  h2 = "";
+  h3 = "";
+  h4 = "";
+  h5 = "";
+  h6 = "";
+  h7 = "";
+  h8 = "";
 
+  renderSquare(s) {
+    return (
+      <button className="square">
+        <div className={s} />
+      </button>
+    );
+  }
   render() {
     const status = "Next player: X";
 
@@ -19,84 +81,84 @@ class Othello extends React.Component {
       <div>
         <div className="status">{status}</div>
         <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
+          {this.renderSquare(this.a1)}
+          {this.renderSquare(this.a2)}
+          {this.renderSquare(this.a3)}
+          {this.renderSquare(this.a4)}
+          {this.renderSquare(this.a5)}
+          {this.renderSquare(this.a6)}
+          {this.renderSquare(this.a7)}
+          {this.renderSquare(this.a8)}
         </div>
         <div className="board-row">
-          {this.renderSquare(8)}
-          {this.renderSquare(9)}
-          {this.renderSquare(11)}
-          {this.renderSquare(12)}
-          {this.renderSquare(13)}
-          {this.renderSquare(14)}
-          {this.renderSquare(15)}
-          {this.renderSquare(16)}
+          {this.renderSquare(this.b1)}
+          {this.renderSquare(this.b2)}
+          {this.renderSquare(this.b3)}
+          {this.renderSquare(this.b4)}
+          {this.renderSquare(this.b5)}
+          {this.renderSquare(this.b6)}
+          {this.renderSquare(this.b7)}
+          {this.renderSquare(this.b8)}
         </div>
         <div className="board-row">
-          {this.renderSquare(17)}
-          {this.renderSquare(18)}
-          {this.renderSquare(19)}
-          {this.renderSquare(20)}
-          {this.renderSquare(21)}
-          {this.renderSquare(22)}
-          {this.renderSquare(23)}
-          {this.renderSquare(24)}
+          {this.renderSquare(this.c1)}
+          {this.renderSquare(this.c2)}
+          {this.renderSquare(this.c3)}
+          {this.renderSquare(this.c4)}
+          {this.renderSquare(this.c5)}
+          {this.renderSquare(this.c6)}
+          {this.renderSquare(this.c7)}
+          {this.renderSquare(this.c8)}
         </div>
         <div className="board-row">
-          {this.renderSquare(25)}
-          {this.renderSquare(26)}
-          {this.renderSquare(27)}
-          {this.renderSquare(28)}
-          {this.renderSquare(29)}
-          {this.renderSquare(30)}
-          {this.renderSquare(31)}
-          {this.renderSquare(32)}
+          {this.renderSquare(this.d1)}
+          {this.renderSquare(this.d2)}
+          {this.renderSquare(this.d3)}
+          {this.renderSquare(this.d4)}
+          {this.renderSquare(this.d5)}
+          {this.renderSquare(this.d6)}
+          {this.renderSquare(this.d7)}
+          {this.renderSquare(this.d8)}
         </div>
         <div className="board-row">
-          {this.renderSquare(33)}
-          {this.renderSquare(34)}
-          {this.renderSquare(35)}
-          {this.renderSquare(36)}
-          {this.renderSquare(37)}
-          {this.renderSquare(38)}
-          {this.renderSquare(39)}
-          {this.renderSquare(40)}
+          {this.renderSquare(this.e1)}
+          {this.renderSquare(this.e2)}
+          {this.renderSquare(this.e3)}
+          {this.renderSquare(this.e4)}
+          {this.renderSquare(this.e5)}
+          {this.renderSquare(this.e6)}
+          {this.renderSquare(this.e7)}
+          {this.renderSquare(this.e8)}
         </div>
         <div className="board-row">
-          {this.renderSquare(41)}
-          {this.renderSquare(42)}
-          {this.renderSquare(43)}
-          {this.renderSquare(44)}
-          {this.renderSquare(45)}
-          {this.renderSquare(46)}
-          {this.renderSquare(47)}
-          {this.renderSquare(48)}
+          {this.renderSquare(this.f1)}
+          {this.renderSquare(this.f2)}
+          {this.renderSquare(this.f3)}
+          {this.renderSquare(this.f4)}
+          {this.renderSquare(this.f5)}
+          {this.renderSquare(this.f6)}
+          {this.renderSquare(this.f7)}
+          {this.renderSquare(this.f8)}
         </div>
         <div className="board-row">
-          {this.renderSquare(49)}
-          {this.renderSquare(50)}
-          {this.renderSquare(51)}
-          {this.renderSquare(52)}
-          {this.renderSquare(53)}
-          {this.renderSquare(54)}
-          {this.renderSquare(55)}
-          {this.renderSquare(56)}
+          {this.renderSquare(this.g1)}
+          {this.renderSquare(this.g2)}
+          {this.renderSquare(this.g3)}
+          {this.renderSquare(this.g4)}
+          {this.renderSquare(this.g5)}
+          {this.renderSquare(this.g6)}
+          {this.renderSquare(this.g7)}
+          {this.renderSquare(this.g8)}
         </div>
         <div className="board-row">
-          {this.renderSquare(57)}
-          {this.renderSquare(58)}
-          {this.renderSquare(59)}
-          {this.renderSquare(60)}
-          {this.renderSquare(61)}
-          {this.renderSquare(62)}
-          {this.renderSquare(63)}
-          {this.renderSquare(64)}
+          {this.renderSquare(this.h1)}
+          {this.renderSquare(this.h2)}
+          {this.renderSquare(this.h3)}
+          {this.renderSquare(this.h4)}
+          {this.renderSquare(this.h5)}
+          {this.renderSquare(this.h6)}
+          {this.renderSquare(this.h7)}
+          {this.renderSquare(this.h8)}
         </div>
       </div>
     );

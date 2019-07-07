@@ -38,13 +38,28 @@ ul {
   float: left;
   font-size: 24px;
   font-weight: bold;
-  line-height: 34px;
-  height: 34px;
+  line-height: 37px;
+  height: 60px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 34px;
+  width: 60px;
+}
+
+.stoneWhite {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  margin: 10px;
+}
+.stoneBlack {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  background-color: #000000;
+  margin: 10px;
 }
 
 .square:focus {
@@ -63,3 +78,5 @@ ul {
 .game-info {
   margin-left: 20px;
 }
+
+/* Ellipse */
