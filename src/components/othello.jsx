@@ -73,12 +73,7 @@ class Othello extends React.Component {
     };
   }
 
-  clickSquare(target) {
-    // const targetSquare = document.getElementsByName("stone");
-    // targetSquare.addEventListener(
-    //   "click",
-    //   function(color) {
-    // let stoneClass = color.target.className;
+  clickSquare(ss) {
     let stoneColor;
 
     if (tglStone === 0) {
@@ -86,17 +81,14 @@ class Othello extends React.Component {
     } else {
       stoneColor = "stoneBlack";
     }
-    console.log(target);
-    this.setState({ a1: stoneColor });
-    console.log(this.state);
-    //   },
-    //   false
-    // );
+    this.setState({ [ss]: stoneColor });
+    tglStone === 0 ? (tglStone = 1) : (tglStone = 0);
+    console.log(tglStone);
   }
-  renderSquare(s) {
+  renderSquare(s, sId) {
     return (
       <div className="square">
-        <button className={s} onClick={s => this.clickSquare(s)} />
+        <button className={s} id={sId} onClick={() => this.clickSquare(sId)} />
       </div>
     );
   }
@@ -107,24 +99,24 @@ class Othello extends React.Component {
       <div>
         <div className="status">{status}</div>
         <div className="board-row">
-          {this.renderSquare(this.state.a1)}
-          {this.renderSquare(this.state.a2)}
-          {this.renderSquare(this.state.a3)}
-          {this.renderSquare(this.state.a4)}
-          {this.renderSquare(this.state.a5)}
-          {this.renderSquare(this.state.a6)}
-          {this.renderSquare(this.state.a7)}
-          {this.renderSquare(this.state.a8)}
+          {this.renderSquare(this.state.a1, "a1")}
+          {this.renderSquare(this.state.a2, "a2")}
+          {this.renderSquare(this.state.a3, "a3")}
+          {this.renderSquare(this.state.a4, "a4")}
+          {this.renderSquare(this.state.a5, "a5")}
+          {this.renderSquare(this.state.a6, "a6")}
+          {this.renderSquare(this.state.a7, "a7")}
+          {this.renderSquare(this.state.a8, "a8")}
         </div>
         <div className="board-row">
-          {this.renderSquare(this.state.b1)}
-          {this.renderSquare(this.state.b2)}
-          {this.renderSquare(this.state.b3)}
-          {this.renderSquare(this.state.b4)}
-          {this.renderSquare(this.state.b5)}
-          {this.renderSquare(this.state.b6)}
-          {this.renderSquare(this.state.b7)}
-          {this.renderSquare(this.state.b8)}
+          {this.renderSquare(this.state.b1, "b1")}
+          {this.renderSquare(this.state.b2, "b2")}
+          {this.renderSquare(this.state.b3, "b3")}
+          {this.renderSquare(this.state.b4, "b4")}
+          {this.renderSquare(this.state.b5, "b5")}
+          {this.renderSquare(this.state.b6, "b6")}
+          {this.renderSquare(this.state.b7, "b7")}
+          {this.renderSquare(this.state.b8, "b8")}
         </div>
         <div className="board-row">
           {this.renderSquare(this.state.c1)}
