@@ -1,10 +1,15 @@
 import * as React from "react";
 import "../index.css";
+// import GameRule from "./";
+
 let tglStone = 0;
+let status;
+let sColor;
 
 class Othello extends React.Component {
   constructor(props) {
     super(props);
+    // 石の色をstateに保持
     this.state = {
       a1: "",
       a2: "",
@@ -73,26 +78,190 @@ class Othello extends React.Component {
     };
   }
 
-  clickSquare(ss) {
-    let stoneColor;
-
-    if (tglStone === 0) {
-      stoneColor = "stoneWhite";
-    } else {
-      stoneColor = "stoneBlack";
+  // クリックしたらCSSで石を描く
+  clickSquare(sClass, sId) {
+    let possibility;
+    if (this.sColor === undefined) {
+      this.sColor = "stoneWhite";
     }
-    this.setState({ [ss]: stoneColor });
-    tglStone === 0 ? (tglStone = 1) : (tglStone = 0);
+    possibility = this.reverseValidation(this.sColor, sId);
+    if (possibility === true) {
+      if (sClass === "") {
+        // if (this.possibility === true) {
+        if (tglStone === 0) {
+          sColor = "stoneWhite";
+        } else {
+          sColor = "stoneBlack";
+        }
+      }
+      this.setState({ [sId]: sColor });
+      tglStone === 0 ? (tglStone = 1) : (tglStone = 0);
+
+      // if (this.tglStone === 0) {
+      //   status = "Next player: WHITE";
+      // } else {
+      //   status = "Next player: BLACK";
+      // }
+      // }
+    }
   }
 
+  reverseValidation(sColor, sId) {
+    var possibility = false;
+    const sIdChar = sId.split("")[0];
+    const sIdNum = sId.split("")[1];
+    const sIdNumTarget = Number(sIdNum);
+    let sIdNumLeft;
+    let sIdNumRight;
+
+    if (sIdNumTarget === 1) {
+      sIdNumRight = sIdNumTarget + 1;
+      sIdNumLeft = 0;
+    } else if (sIdNumTarget === 8) {
+      sIdNumLeft = sIdNumTarget - 1;
+      sIdNumRight = 0;
+    } else {
+      sIdNumRight = sIdNumTarget + 1;
+      sIdNumLeft = sIdNumTarget - 1;
+    }
+    const sIdNumLeftStr = String(sIdNumLeft);
+    const sIdNumRightStr = String(sIdNumRight);
+
+    let squareRight;
+    let squareLeft;
+    let squareUp;
+    let squareDown;
+    let squareLeftUp;
+    let squareLeftDown;
+    let squareRightUp;
+    let squareRightDown;
+
+    if (sColor === "stoneWhite") {
+      switch (sIdChar) {
+        case "a":
+          squareRight = "a" + sIdNumRightStr;
+          squareLeft = "a" + sIdNumLeftStr;
+          squareDown = "b" + sIdNum;
+          squareLeftDown = "b" + sIdNumLeftStr;
+          squareRightDown = "b" + sIdNumRightStr;
+          if (
+            this.state[squareRight] === "stoneBlack" ||
+            this.state[squareLeft] === "stoneBlack" ||
+            this.state[squareDown] === "stoneBlack" ||
+            this.state[squareLeftDown] === "stoneBlack" ||
+            this.state[squareRightDown] === "stoneBlack"
+          ) {
+            return (possibility = true);
+          } else {
+            return (possibility = false);
+          }
+        case "b":
+          squareRight = "b" + sIdNumRightStr;
+          squareLeft = "b" + sIdNumLeftStr;
+          squareDown = "c" + sIdNum;
+          squareLeftDown = "c" + sIdNumLeftStr;
+          squareRightDown = "c" + sIdNumRightStr;
+          squareUp = "a" + sIdNum;
+          squareLeftUp = "a" + sIdNumLeftStr;
+          squareRightUp = "a" + sIdNumRightStr;
+
+          if (
+            this.state[squareRight] === "stoneBlack" ||
+            this.state[squareLeft] === "stoneBlack" ||
+            this.state[squareDown] === "stoneBlack" ||
+            this.state[squareLeftDown] === "stoneBlack" ||
+            this.state[squareRightDown] === "stoneBlack" ||
+            this.state[squareUp] === "stoneBlack" ||
+            this.state[squareLeftUp] === "stoneBlack" ||
+            this.state[squareRightUp] === "stoneBlack"
+          ) {
+            return (possibility = true);
+          } else {
+            return (possibility = false);
+          }
+
+        case "c":
+          squareRight = "c" + sIdNumRightStr;
+          squareLeft = "c" + sIdNumLeftStr;
+          squareDown = "d" + sIdNum;
+          squareLeftDown = "d" + sIdNumLeftStr;
+          squareRightDown = "d" + sIdNumRightStr;
+          squareUp = "b" + sIdNum;
+          squareLeftUp = "b" + sIdNumLeftStr;
+          squareRightUp = "b" + sIdNumRightStr;
+
+          if (
+            this.state[squareRight] === "stoneBlack" ||
+            this.state[squareLeft] === "stoneBlack" ||
+            this.state[squareDown] === "stoneBlack" ||
+            this.state[squareLeftDown] === "stoneBlack" ||
+            this.state[squareRightDown] === "stoneBlack" ||
+            this.state[squareUp] === "stoneBlack" ||
+            this.state[squareLeftUp] === "stoneBlack" ||
+            this.state[squareRightUp] === "stoneBlack"
+          ) {
+            return (possibility = true);
+          } else {
+            return (possibility = false);
+          }
+
+        case "d":
+          squareRight = "d" + sIdNumRightStr;
+          squareLeft = "d" + sIdNumLeftStr;
+          squareDown = "e" + sIdNum;
+          squareLeftDown = "e" + sIdNumLeftStr;
+          squareRightDown = "e" + sIdNumRightStr;
+          squareUp = "c" + sIdNum;
+          squareLeftUp = "c" + sIdNumLeftStr;
+          squareRightUp = "c" + sIdNumRightStr;
+
+          if (
+            this.state[squareRight] === "stoneBlack" ||
+            this.state[squareLeft] === "stoneBlack" ||
+            this.state[squareDown] === "stoneBlack" ||
+            this.state[squareLeftDown] === "stoneBlack" ||
+            this.state[squareRightDown] === "stoneBlack" ||
+            this.state[squareUp] === "stoneBlack" ||
+            this.state[squareLeftUp] === "stoneBlack" ||
+            this.state[squareRightUp] === "stoneBlack"
+          ) {
+            possibility = true;
+          } else {
+            possibility = false;
+          }
+
+          break;
+        case "e":
+          break;
+        case "f":
+          break;
+        case "g":
+          break;
+        case "h":
+          break;
+        default:
+      }
+    }
+  }
+
+  /* ************************************** 
+    盤目を描く
+   ************************************** */
+
+  // 四角
   renderSquare(s, sId) {
     return (
       <div className="square">
-        <button className={s} id={sId} onClick={() => this.clickSquare(sId)} />
+        <button
+          className={s}
+          id={sId}
+          onClick={() => this.clickSquare(s, sId)}
+        />
       </div>
     );
   }
 
+  // 行
   renderLine(line) {
     const squareId1 = line + "1";
     const squareId2 = line + "2";
@@ -124,9 +293,8 @@ class Othello extends React.Component {
     );
   }
 
+  // 盤目
   render() {
-    const status = "Next player: X";
-
     return (
       <div>
         <div className="status">{status}</div>
