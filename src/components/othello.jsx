@@ -85,18 +85,24 @@ class Othello extends React.Component {
       this.sColor = "stoneWhite";
     }
     possibility = this.reverseValidation(this.sColor, sId);
+
     if (possibility === true) {
       if (sClass === "") {
         // if (this.possibility === true) {
         if (tglStone === 0) {
-          sColor = "stoneWhite";
+          this.sColor = "stoneWhite";
         } else {
-          sColor = "stoneBlack";
+          this.sColor = "stoneBlack";
         }
       }
-      this.setState({ [sId]: sColor });
+      this.setState({ [sId]: this.sColor });
       tglStone === 0 ? (tglStone = 1) : (tglStone = 0);
-
+      if (tglStone === 0) {
+        this.sColor = "stoneWhite";
+      } else {
+        this.sColor = "stoneBlack";
+      }
+      console.log(sColor);
       // if (this.tglStone === 0) {
       //   status = "Next player: WHITE";
       // } else {
@@ -107,7 +113,7 @@ class Othello extends React.Component {
   }
 
   reverseValidation(sColor, sId) {
-    var possibility = false;
+    let possibility = false;
     const sIdChar = sId.split("")[0];
     const sIdNum = sId.split("")[1];
     const sIdNumTarget = Number(sIdNum);
@@ -135,112 +141,201 @@ class Othello extends React.Component {
     let squareLeftDown;
     let squareRightUp;
     let squareRightDown;
+    let nextColor;
 
     if (sColor === "stoneWhite") {
-      switch (sIdChar) {
-        case "a":
-          squareRight = "a" + sIdNumRightStr;
-          squareLeft = "a" + sIdNumLeftStr;
-          squareDown = "b" + sIdNum;
-          squareLeftDown = "b" + sIdNumLeftStr;
-          squareRightDown = "b" + sIdNumRightStr;
-          if (
-            this.state[squareRight] === "stoneBlack" ||
-            this.state[squareLeft] === "stoneBlack" ||
-            this.state[squareDown] === "stoneBlack" ||
-            this.state[squareLeftDown] === "stoneBlack" ||
-            this.state[squareRightDown] === "stoneBlack"
-          ) {
-            return (possibility = true);
-          } else {
-            return (possibility = false);
-          }
-        case "b":
-          squareRight = "b" + sIdNumRightStr;
-          squareLeft = "b" + sIdNumLeftStr;
-          squareDown = "c" + sIdNum;
-          squareLeftDown = "c" + sIdNumLeftStr;
-          squareRightDown = "c" + sIdNumRightStr;
-          squareUp = "a" + sIdNum;
-          squareLeftUp = "a" + sIdNumLeftStr;
-          squareRightUp = "a" + sIdNumRightStr;
+      nextColor = "stoneBlack";
+    } else {
+      nextColor = "stoneWhite";
+    }
 
-          if (
-            this.state[squareRight] === "stoneBlack" ||
-            this.state[squareLeft] === "stoneBlack" ||
-            this.state[squareDown] === "stoneBlack" ||
-            this.state[squareLeftDown] === "stoneBlack" ||
-            this.state[squareRightDown] === "stoneBlack" ||
-            this.state[squareUp] === "stoneBlack" ||
-            this.state[squareLeftUp] === "stoneBlack" ||
-            this.state[squareRightUp] === "stoneBlack"
-          ) {
-            return (possibility = true);
-          } else {
-            return (possibility = false);
-          }
+    switch (sIdChar) {
+      case "a":
+        squareRight = "a" + sIdNumRightStr;
+        squareLeft = "a" + sIdNumLeftStr;
+        squareDown = "b" + sIdNum;
+        squareLeftDown = "b" + sIdNumLeftStr;
+        squareRightDown = "b" + sIdNumRightStr;
+        if (
+          this.state[squareRight] === nextColor ||
+          this.state[squareLeft] === nextColor ||
+          this.state[squareDown] === nextColor ||
+          this.state[squareLeftDown] === nextColor ||
+          this.state[squareRightDown] === nextColor
+        ) {
+          return (possibility = true);
+        } else {
+          return (possibility = false);
+        }
+      case "b":
+        squareRight = "b" + sIdNumRightStr;
+        squareLeft = "b" + sIdNumLeftStr;
+        squareDown = "c" + sIdNum;
+        squareLeftDown = "c" + sIdNumLeftStr;
+        squareRightDown = "c" + sIdNumRightStr;
+        squareUp = "a" + sIdNum;
+        squareLeftUp = "a" + sIdNumLeftStr;
+        squareRightUp = "a" + sIdNumRightStr;
 
-        case "c":
-          squareRight = "c" + sIdNumRightStr;
-          squareLeft = "c" + sIdNumLeftStr;
-          squareDown = "d" + sIdNum;
-          squareLeftDown = "d" + sIdNumLeftStr;
-          squareRightDown = "d" + sIdNumRightStr;
-          squareUp = "b" + sIdNum;
-          squareLeftUp = "b" + sIdNumLeftStr;
-          squareRightUp = "b" + sIdNumRightStr;
+        if (
+          this.state[squareRight] === nextColor ||
+          this.state[squareLeft] === nextColor ||
+          this.state[squareDown] === nextColor ||
+          this.state[squareLeftDown] === nextColor ||
+          this.state[squareRightDown] === nextColor ||
+          this.state[squareUp] === nextColor ||
+          this.state[squareLeftUp] === nextColor ||
+          this.state[squareRightUp] === nextColor
+        ) {
+          return (possibility = true);
+        } else {
+          return (possibility = false);
+        }
 
-          if (
-            this.state[squareRight] === "stoneBlack" ||
-            this.state[squareLeft] === "stoneBlack" ||
-            this.state[squareDown] === "stoneBlack" ||
-            this.state[squareLeftDown] === "stoneBlack" ||
-            this.state[squareRightDown] === "stoneBlack" ||
-            this.state[squareUp] === "stoneBlack" ||
-            this.state[squareLeftUp] === "stoneBlack" ||
-            this.state[squareRightUp] === "stoneBlack"
-          ) {
-            return (possibility = true);
-          } else {
-            return (possibility = false);
-          }
+      case "c":
+        squareRight = "c" + sIdNumRightStr;
+        squareLeft = "c" + sIdNumLeftStr;
+        squareDown = "d" + sIdNum;
+        squareLeftDown = "d" + sIdNumLeftStr;
+        squareRightDown = "d" + sIdNumRightStr;
+        squareUp = "b" + sIdNum;
+        squareLeftUp = "b" + sIdNumLeftStr;
+        squareRightUp = "b" + sIdNumRightStr;
 
-        case "d":
-          squareRight = "d" + sIdNumRightStr;
-          squareLeft = "d" + sIdNumLeftStr;
-          squareDown = "e" + sIdNum;
-          squareLeftDown = "e" + sIdNumLeftStr;
-          squareRightDown = "e" + sIdNumRightStr;
-          squareUp = "c" + sIdNum;
-          squareLeftUp = "c" + sIdNumLeftStr;
-          squareRightUp = "c" + sIdNumRightStr;
+        if (
+          this.state[squareRight] === nextColor ||
+          this.state[squareLeft] === nextColor ||
+          this.state[squareDown] === nextColor ||
+          this.state[squareLeftDown] === nextColor ||
+          this.state[squareRightDown] === nextColor ||
+          this.state[squareUp] === nextColor ||
+          this.state[squareLeftUp] === nextColor ||
+          this.state[squareRightUp] === nextColor
+        ) {
+          return (possibility = true);
+        } else {
+          return (possibility = false);
+        }
 
-          if (
-            this.state[squareRight] === "stoneBlack" ||
-            this.state[squareLeft] === "stoneBlack" ||
-            this.state[squareDown] === "stoneBlack" ||
-            this.state[squareLeftDown] === "stoneBlack" ||
-            this.state[squareRightDown] === "stoneBlack" ||
-            this.state[squareUp] === "stoneBlack" ||
-            this.state[squareLeftUp] === "stoneBlack" ||
-            this.state[squareRightUp] === "stoneBlack"
-          ) {
-            possibility = true;
-          } else {
-            possibility = false;
-          }
+      case "d":
+        squareRight = "d" + sIdNumRightStr;
+        squareLeft = "d" + sIdNumLeftStr;
+        squareDown = "e" + sIdNum;
+        squareLeftDown = "e" + sIdNumLeftStr;
+        squareRightDown = "e" + sIdNumRightStr;
+        squareUp = "c" + sIdNum;
+        squareLeftUp = "c" + sIdNumLeftStr;
+        squareRightUp = "c" + sIdNumRightStr;
 
-          break;
-        case "e":
-          break;
-        case "f":
-          break;
-        case "g":
-          break;
-        case "h":
-          break;
-        default:
-      }
+        if (
+          this.state[squareRight] === nextColor ||
+          this.state[squareLeft] === nextColor ||
+          this.state[squareDown] === nextColor ||
+          this.state[squareLeftDown] === nextColor ||
+          this.state[squareRightDown] === nextColor ||
+          this.state[squareUp] === nextColor ||
+          this.state[squareLeftUp] === nextColor ||
+          this.state[squareRightUp] === nextColor
+        ) {
+          return (possibility = true);
+        } else {
+          return (possibility = false);
+        }
+      case "e":
+        squareRight = "e" + sIdNumRightStr;
+        squareLeft = "e" + sIdNumLeftStr;
+        squareDown = "f" + sIdNum;
+        squareLeftDown = "f" + sIdNumLeftStr;
+        squareRightDown = "f" + sIdNumRightStr;
+        squareUp = "d" + sIdNum;
+        squareLeftUp = "d" + sIdNumLeftStr;
+        squareRightUp = "d" + sIdNumRightStr;
+
+        if (
+          this.state[squareRight] === nextColor ||
+          this.state[squareLeft] === nextColor ||
+          this.state[squareDown] === nextColor ||
+          this.state[squareLeftDown] === nextColor ||
+          this.state[squareRightDown] === nextColor ||
+          this.state[squareUp] === nextColor ||
+          this.state[squareLeftUp] === nextColor ||
+          this.state[squareRightUp] === nextColor
+        ) {
+          return (possibility = true);
+        } else {
+          return (possibility = false);
+        }
+      case "f":
+        squareRight = "f" + sIdNumRightStr;
+        squareLeft = "f" + sIdNumLeftStr;
+        squareDown = "g" + sIdNum;
+        squareLeftDown = "g" + sIdNumLeftStr;
+        squareRightDown = "g" + sIdNumRightStr;
+        squareUp = "e" + sIdNum;
+        squareLeftUp = "e" + sIdNumLeftStr;
+        squareRightUp = "e" + sIdNumRightStr;
+
+        if (
+          this.state[squareRight] === nextColor ||
+          this.state[squareLeft] === nextColor ||
+          this.state[squareDown] === nextColor ||
+          this.state[squareLeftDown] === nextColor ||
+          this.state[squareRightDown] === nextColor ||
+          this.state[squareUp] === nextColor ||
+          this.state[squareLeftUp] === nextColor ||
+          this.state[squareRightUp] === nextColor
+        ) {
+          return (possibility = true);
+        } else {
+          return (possibility = false);
+        }
+
+      case "g":
+        squareRight = "g" + sIdNumRightStr;
+        squareLeft = "g" + sIdNumLeftStr;
+        squareDown = "h" + sIdNum;
+        squareLeftDown = "h" + sIdNumLeftStr;
+        squareRightDown = "h" + sIdNumRightStr;
+        squareUp = "f" + sIdNum;
+        squareLeftUp = "f" + sIdNumLeftStr;
+        squareRightUp = "f" + sIdNumRightStr;
+
+        if (
+          this.state[squareRight] === nextColor ||
+          this.state[squareLeft] === nextColor ||
+          this.state[squareDown] === nextColor ||
+          this.state[squareLeftDown] === nextColor ||
+          this.state[squareRightDown] === nextColor ||
+          this.state[squareUp] === nextColor ||
+          this.state[squareLeftUp] === nextColor ||
+          this.state[squareRightUp] === nextColor
+        ) {
+          return (possibility = true);
+        } else {
+          return (possibility = false);
+        }
+
+      case "h":
+        squareRight = "h" + sIdNumRightStr;
+        squareLeft = "h" + sIdNumLeftStr;
+        squareUp = "g" + sIdNum;
+        squareLeftUp = "g" + sIdNumLeftStr;
+        squareRightUp = "g" + sIdNumRightStr;
+
+        if (
+          this.state[squareRight] === nextColor ||
+          this.state[squareLeft] === nextColor ||
+          this.state[squareUp] === nextColor ||
+          this.state[squareLeftUp] === nextColor ||
+          this.state[squareRightUp] === nextColor
+        ) {
+          return (possibility = true);
+        } else {
+          return (possibility = false);
+        }
+
+      default:
+        return;
     }
   }
 
