@@ -80,12 +80,14 @@ class Othello extends React.Component {
 
   // クリックしたらCSSで石を描く
   clickSquare(sClass, sId) {
+    // 現ターンで石が置ける場所かどうか判断
     let possibility;
     if (this.sColor === undefined) {
       this.sColor = "stoneWhite";
     }
     possibility = this.reverseValidation(this.sColor, sId);
 
+    // 石が置けるようなら置く
     if (possibility === true) {
       if (sClass === "") {
         // if (this.possibility === true) {
@@ -95,14 +97,17 @@ class Othello extends React.Component {
           this.sColor = "stoneBlack";
         }
       }
+
+      // state変更つまり石を置く
       this.setState({ [sId]: this.sColor });
+
+      // 次のターンの準備
       tglStone === 0 ? (tglStone = 1) : (tglStone = 0);
       if (tglStone === 0) {
         this.sColor = "stoneWhite";
       } else {
         this.sColor = "stoneBlack";
       }
-      console.log(sColor);
       // if (this.tglStone === 0) {
       //   status = "Next player: WHITE";
       // } else {
@@ -135,6 +140,7 @@ class Othello extends React.Component {
 
     let squareRight;
     let squareLeft;
+    let squareCurrent;
     let squareUp;
     let squareDown;
     let squareLeftUp;
@@ -147,6 +153,22 @@ class Othello extends React.Component {
       nextColor = "stoneBlack";
     } else {
       nextColor = "stoneWhite";
+    }
+
+    // 右方向
+    squareRight = sIdChar + sIdNumRightStr;
+    if (this.state[squareRight] === nextColor) {
+      for (let n = 1; n < sIdNum - n; n++) {
+        squareRight = sIdChar + String(sIdNumRight + n);
+        squareCurrent = sIdChar + String(sIdNumRight + n - 1);
+        if (this.state[squareRight] === nextColor) {
+          //TODO: これより左のすべてのマスをsColorにする
+          this.setState({ [squareCurrent]: this.sColor });
+        } else if (this.state[squareRight] === sColor) {
+        } else {
+          break;
+        }
+      }
     }
 
     switch (sIdChar) {
