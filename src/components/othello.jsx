@@ -82,7 +82,6 @@ class Othello extends React.Component {
     if (this.sColor === undefined) {
       this.sColor = "stoneWhite";
     }
-    console.log(this.sColor, sId);
 
     this.reverseValidation(this.sColor, sId);
 
@@ -129,9 +128,7 @@ class Othello extends React.Component {
     const sIdNumStr = String(sIdNum);
 
     // IDの行名を番号化
-    let sIdCharNum;
-    let sIdCharStr;
-    const lineArray = ([{ charStr: sIdCharStr, charNum: sIdCharNum }] = [
+    const lineArray = [
       { charStr: "a", charNum: 1 },
       { charStr: "b", charNum: 2 },
       { charStr: "c", charNum: 3 },
@@ -140,16 +137,63 @@ class Othello extends React.Component {
       { charStr: "f", charNum: 6 },
       { charStr: "g", charNum: 7 },
       { charStr: "h", charNum: 8 }
-    ]);
+    ];
+    // 行番号を検索するメソッド
+    let sIdCharNum;
+    let sIdCharStr;
     let targetCharNum;
+    // mode 1:上方向 2:下方向
+    // idChar: 変換したい文字
+    function sIdCharToNum(mode, targetChar) {
+      sIdCharNum = lineArray.filter(char => {
+        return char.charStr === targetChar;
+      });
+      if (mode === 1) {
+        targetCharNum = sIdCharNum[0].charNum - 1;
+      } else if (mode === 2) {
+        targetCharNum = sIdCharNum[0].charNum + 1;
+      }
+      sIdCharStr = lineArray.filter(num => {
+        return num.charNum === targetCharNum;
+      });
+      return sIdCharStr[0].charStr;
+    }
 
-    // TODO: 行番号を検索するメソッド
-    // function filterTargetChar(sIdCharStr){
-    //  targetCharNum=lineArray.filter((charStr) => {
-    //     return (charStr === sIdCharStr);
-    // }
-    // return targetCharNum;
-    // } ;
+    // reverseのための行名の行列
+    let sIdCharUpArr;
+    let sIdCharDownArr;
+    switch (sIdChar) {
+      case "a":
+        sIdCharDownArr = ["b", "c", "d", "e", "f", "g", "h"];
+        break;
+      case "b":
+        sIdCharDownArr = ["c", "d", "e", "f", "g", "h"];
+        break;
+      case "c":
+        sIdCharUpArr = ["b", "a"];
+        sIdCharDownArr = ["d", "e", "f", "g", "h"];
+        break;
+      case "d":
+        sIdCharUpArr = ["c", "b", "a"];
+        sIdCharDownArr = ["e", "f", "g", "h"];
+        break;
+      case "e":
+        sIdCharUpArr = ["d", "c", "b", "a"];
+        sIdCharDownArr = ["f", "g", "h"];
+        break;
+      case "f":
+        sIdCharUpArr = ["e", "d", "c", "b", "a"];
+        sIdCharDownArr = ["g", "h"];
+        break;
+      case "g":
+        sIdCharUpArr = ["f", "e", "d", "c", "b", "a"];
+        break;
+      case "h":
+        sIdCharUpArr = ["g", "f", "e", "d", "c", "b", "a"];
+        break;
+      default:
+        break;
+    }
 
     // 周囲のマスの変数宣言
     let squareRight;
@@ -222,21 +266,49 @@ class Othello extends React.Component {
     }
 
     // 上方向
-    sIdCharUp = String(sIdChar) + sIdNum;
-    squareUp = sIdChar + sIdNumStr;
-    //左隣に敵の石があるとき
+    sIdCharStr = sIdCharToNum(1, sIdChar);
+    squareUp = sIdCharStr + sIdNumStr;
+    //上に敵の石があるとき
     if (this.state[squareUp] === nextColor) {
       ableToReverse = 1;
-      for (let n = 1; n < sIdNum; n++) {
-        squareLeft = sIdChar + String(sIdNumLeft - n);
-        // 左隣も敵の石のときableToReverseのカウントが上がる
-        if (this.state[squareLeft] === nextColor) {
+      for (let n = 1; n < sIdCharNum[0].charNum; n++) {
+        sIdCharStr = sIdCharToNum(1, sIdCharStr);
+        squareUp = sIdCharStr + sIdNumStr;
+        // 上も敵の石のときableToReverseのカウントが上がる
+        if (this.state[squareUp] === nextColor) {
           ableToReverse++;
-          //左隣に自陣の石があればableToReveerse分のマスをsColorにして終了
-        } else if (this.state[squareLeft] === sColor) {
+          //上に自陣の石があればableToReveerse分のマスをsColorにして終了
+        } else if (this.state[squareUp] === sColor) {
           this.setState({ [sId]: this.sColor });
           for (let n = 0; n < ableToReverse; n++) {
-            squareCurrent = sIdChar + String(sIdNumLeft - n);
+            squareCurrent = sIdCharUpArr[n] + sIdNumStr;
+            this.setState({ [squareCurrent]: this.sColor });
+          }
+          break;
+          // 最終的に右隣に自陣の石がなければ終了
+        } else {
+          break;
+        }
+      }
+    }
+
+    // 下方向
+    sIdCharStr = sIdCharToNum(2, sIdChar);
+    squareDown = sIdCharStr + sIdNumStr;
+    // 下に敵の石があるとき
+    if (this.state[squareDown] === nextColor) {
+      ableToReverse = 1;
+      for (let n = 1; n < 8 - sIdCharNum[0].charNum; n++) {
+        sIdCharStr = sIdCharToNum(2, sIdCharStr);
+        squareDown = sIdCharStr + sIdNumStr;
+        // 下も敵の石のときableToReverseのカウントが上がる
+        if (this.state[squareDown] === nextColor) {
+          ableToReverse++;
+          //上に自陣の石があればableToReveerse分のマスをsColorにして終了
+        } else if (this.state[squareDown] === sColor) {
+          this.setState({ [sId]: this.sColor });
+          for (let n = 0; n < ableToReverse; n++) {
+            squareCurrent = sIdCharDownArr[n] + sIdNumStr;
             this.setState({ [squareCurrent]: this.sColor });
           }
           break;
