@@ -318,6 +318,114 @@ class Othello extends React.Component {
         }
       }
     }
+
+    // 右上方向
+    sIdCharStr = sIdCharToNum(1, sIdChar);
+    squareRightUp = sIdCharStr + sIdNumRightStr;
+    // 右上に敵の石があるとき
+    if (this.state[squareRightUp] === nextColor) {
+      ableToReverse = 1;
+      for (let n = 1; n < 8 - sIdNum; n++) {
+        sIdCharStr = sIdCharToNum(1, sIdCharStr);
+        squareRightUp = sIdCharStr + String(sIdNumRight + n);
+        // 右上も敵の石のときableToReverseのカウントが上がる
+        if (this.state[squareRightUp] === nextColor) {
+          ableToReverse++;
+          //右上に自陣の石があればableToReveerse分のマスをsColorにして終了
+        } else if (this.state[squareRightUp] === sColor) {
+          this.setState({ [sId]: this.sColor });
+          for (let n = 0; n < ableToReverse; n++) {
+            squareCurrent = sIdCharUpArr[n] + String(sIdNumRight + n);
+            this.setState({ [squareCurrent]: this.sColor });
+          }
+          break;
+          // 最終的に右上に自陣の石がなければ終了
+        } else {
+          break;
+        }
+      }
+    }
+
+    // 左上方向
+    sIdCharStr = sIdCharToNum(1, sIdChar);
+    squareLeftUp = sIdCharStr + sIdNumLeftStr;
+    // 左上に敵の石があるとき
+    if (this.state[squareLeftUp] === nextColor) {
+      ableToReverse = 1;
+      for (let n = 1; n < sIdNum; n++) {
+        sIdCharStr = sIdCharToNum(1, sIdCharStr);
+        squareLeftUp = sIdCharStr + String(sIdNumLeft - n);
+        // 左上も敵の石のときableToReverseのカウントが上がる
+        if (this.state[squareLeftUp] === nextColor) {
+          ableToReverse++;
+          //左上に自陣の石があればableToReveerse分のマスをsColorにして終了
+        } else if (this.state[squareLeftUp] === sColor) {
+          this.setState({ [sId]: this.sColor });
+          for (let n = 0; n < ableToReverse; n++) {
+            squareCurrent = sIdCharUpArr[n] + String(sIdNumLeft - n);
+            this.setState({ [squareCurrent]: this.sColor });
+          }
+          break;
+          // 最終的に左上に自陣の石がなければ終了
+        } else {
+          break;
+        }
+      }
+    }
+
+    // 右下方向
+    sIdCharStr = sIdCharToNum(2, sIdChar);
+    squareRightDown = sIdCharStr + sIdNumRightStr;
+    // 右下に敵の石があるとき
+    if (this.state[squareRightDown] === nextColor) {
+      ableToReverse = 1;
+      for (let n = 1; n < 8 - sIdNum; n++) {
+        sIdCharStr = sIdCharToNum(2, sIdCharStr);
+        squareRightDown = sIdCharStr + String(sIdNumRight + n);
+        // 右下も敵の石のときableToReverseのカウントが上がる
+        if (this.state[squareRightDown] === nextColor) {
+          ableToReverse++;
+          //右下に自陣の石があればableToReveerse分のマスをsColorにして終了
+        } else if (this.state[squareRightDown] === sColor) {
+          this.setState({ [sId]: this.sColor });
+          for (let n = 0; n < ableToReverse; n++) {
+            squareCurrent = sIdCharDownArr[n] + String(sIdNumRight + n);
+            this.setState({ [squareCurrent]: this.sColor });
+          }
+          break;
+          // 最終的に右下に自陣の石がなければ終了
+        } else {
+          break;
+        }
+      }
+    }
+
+    // 左下方向
+    sIdCharStr = sIdCharToNum(2, sIdChar);
+    squareLeftDown = sIdCharStr + sIdNumLeftStr;
+    // 左下に敵の石があるとき
+    if (this.state[squareLeftDown] === nextColor) {
+      ableToReverse = 1;
+      for (let n = 1; n < sIdNum; n++) {
+        sIdCharStr = sIdCharToNum(2, sIdCharStr);
+        squareLeftDown = sIdCharStr + String(sIdNumLeft - n);
+        // 左下も敵の石のときableToReverseのカウントが上がる
+        if (this.state[squareLeftDown] === nextColor) {
+          ableToReverse++;
+          //左下に自陣の石があればableToReveerse分のマスをsColorにして終了
+        } else if (this.state[squareLeftDown] === sColor) {
+          this.setState({ [sId]: this.sColor });
+          for (let n = 0; n < ableToReverse; n++) {
+            squareCurrent = sIdCharDownArr[n] + String(sIdNumLeft - n);
+            this.setState({ [squareCurrent]: this.sColor });
+          }
+          break;
+          // 最終的に左下に自陣の石がなければ終了
+        } else {
+          break;
+        }
+      }
+    }
   }
 
   /* ************************************** 
