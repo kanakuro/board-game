@@ -4,7 +4,6 @@ import "../index.css";
 
 let tglStone = 0;
 let status;
-let sColor;
 
 class Othello extends React.Component {
   constructor(props) {
@@ -92,13 +91,6 @@ class Othello extends React.Component {
     } else {
       this.sColor = "stoneBlack";
     }
-    // if (this.tglStone === 0) {
-    //   status = "Next player: WHITE";
-    // } else {
-    //   status = "Next player: BLACK";
-    // }
-    // }
-    // }
   }
 
   reverseValidation(sColor, sId) {
@@ -107,8 +99,6 @@ class Othello extends React.Component {
     const sIdNumTarget = Number(sIdNum);
     let sIdNumLeft;
     let sIdNumRight;
-    let sIdCharUp;
-    let sIdCharDown;
 
     // IDの列番号の数字
     if (sIdNumTarget === 1) {
@@ -129,6 +119,7 @@ class Othello extends React.Component {
 
     // IDの行名を番号化
     const lineArray = [
+      { charStr: "z", charNum: 0 },
       { charStr: "a", charNum: 1 },
       { charStr: "b", charNum: 2 },
       { charStr: "c", charNum: 3 },
@@ -136,7 +127,8 @@ class Othello extends React.Component {
       { charStr: "e", charNum: 5 },
       { charStr: "f", charNum: 6 },
       { charStr: "g", charNum: 7 },
-      { charStr: "h", charNum: 8 }
+      { charStr: "h", charNum: 8 },
+      { charStr: "z", charNum: 9 }
     ];
     // 行番号を検索するメソッド
     let sIdCharNum;
@@ -148,11 +140,19 @@ class Othello extends React.Component {
       sIdCharNum = lineArray.filter(char => {
         return char.charStr === targetChar;
       });
+
       if (mode === 1) {
         targetCharNum = sIdCharNum[0].charNum - 1;
+        // if (targetCharNum === 0) {
+        //   targetCharNum = 1;
+        // }
       } else if (mode === 2) {
         targetCharNum = sIdCharNum[0].charNum + 1;
+        // if (targetCharNum === 9) {
+        //   targetCharNum = 8;
+        // }
       }
+
       sIdCharStr = lineArray.filter(num => {
         return num.charNum === targetCharNum;
       });
@@ -218,7 +218,8 @@ class Othello extends React.Component {
     // 右方向
     squareRight = sIdChar + sIdNumRightStr;
     //右隣に敵の石があるとき
-    if (this.state[squareRight] === nextColor) {
+    if (sIdNumRightStr === "9") {
+    } else if (this.state[squareRight] === nextColor) {
       ableToReverse = 1;
       for (let n = 1; n <= 8 - sIdNum; n++) {
         squareRight = sIdChar + String(sIdNumRight + n);
@@ -243,7 +244,8 @@ class Othello extends React.Component {
     // 左方向
     squareLeft = sIdChar + sIdNumLeftStr;
     //左隣に敵の石があるとき
-    if (this.state[squareLeft] === nextColor) {
+    if (sIdNumLeftStr === "0") {
+    } else if (this.state[squareLeft] === nextColor) {
       ableToReverse = 1;
       for (let n = 1; n < sIdNum; n++) {
         squareLeft = sIdChar + String(sIdNumLeft - n);
@@ -269,7 +271,8 @@ class Othello extends React.Component {
     sIdCharStr = sIdCharToNum(1, sIdChar);
     squareUp = sIdCharStr + sIdNumStr;
     //上に敵の石があるとき
-    if (this.state[squareUp] === nextColor) {
+    if (sIdCharStr === "a" || sIdCharStr === "z") {
+    } else if (this.state[squareUp] === nextColor) {
       ableToReverse = 1;
       for (let n = 1; n < sIdCharNum[0].charNum; n++) {
         sIdCharStr = sIdCharToNum(1, sIdCharStr);
@@ -296,7 +299,8 @@ class Othello extends React.Component {
     sIdCharStr = sIdCharToNum(2, sIdChar);
     squareDown = sIdCharStr + sIdNumStr;
     // 下に敵の石があるとき
-    if (this.state[squareDown] === nextColor) {
+    if (sIdCharStr === "h" || sIdCharStr === "z") {
+    } else if (this.state[squareDown] === nextColor) {
       ableToReverse = 1;
       for (let n = 1; n < 8 - sIdCharNum[0].charNum; n++) {
         sIdCharStr = sIdCharToNum(2, sIdCharStr);
@@ -323,7 +327,8 @@ class Othello extends React.Component {
     sIdCharStr = sIdCharToNum(1, sIdChar);
     squareRightUp = sIdCharStr + sIdNumRightStr;
     // 右上に敵の石があるとき
-    if (this.state[squareRightUp] === nextColor) {
+    if (sIdCharStr === "a" || sIdCharStr === "z") {
+    } else if (this.state[squareRightUp] === nextColor) {
       ableToReverse = 1;
       for (let n = 1; n < 8 - sIdNum; n++) {
         sIdCharStr = sIdCharToNum(1, sIdCharStr);
@@ -350,7 +355,8 @@ class Othello extends React.Component {
     sIdCharStr = sIdCharToNum(1, sIdChar);
     squareLeftUp = sIdCharStr + sIdNumLeftStr;
     // 左上に敵の石があるとき
-    if (this.state[squareLeftUp] === nextColor) {
+    if (sIdCharStr === "a" || sIdCharStr === "z") {
+    } else if (this.state[squareLeftUp] === nextColor) {
       ableToReverse = 1;
       for (let n = 1; n < sIdNum; n++) {
         sIdCharStr = sIdCharToNum(1, sIdCharStr);
@@ -377,7 +383,8 @@ class Othello extends React.Component {
     sIdCharStr = sIdCharToNum(2, sIdChar);
     squareRightDown = sIdCharStr + sIdNumRightStr;
     // 右下に敵の石があるとき
-    if (this.state[squareRightDown] === nextColor) {
+    if (sIdCharStr === "h" || sIdCharStr === "z") {
+    } else if (this.state[squareRightDown] === nextColor) {
       ableToReverse = 1;
       for (let n = 1; n < 8 - sIdNum; n++) {
         sIdCharStr = sIdCharToNum(2, sIdCharStr);
@@ -404,7 +411,8 @@ class Othello extends React.Component {
     sIdCharStr = sIdCharToNum(2, sIdChar);
     squareLeftDown = sIdCharStr + sIdNumLeftStr;
     // 左下に敵の石があるとき
-    if (this.state[squareLeftDown] === nextColor) {
+    if (sIdCharStr === "h" || sIdCharStr === "z") {
+    } else if (this.state[squareLeftDown] === nextColor) {
       ableToReverse = 1;
       for (let n = 1; n < sIdNum; n++) {
         sIdCharStr = sIdCharToNum(2, sIdCharStr);
